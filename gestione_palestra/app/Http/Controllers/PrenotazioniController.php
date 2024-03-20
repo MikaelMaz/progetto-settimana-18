@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Prenotazioni;
 use App\Http\Requests\StorePrenotazioniRequest;
 use App\Http\Requests\UpdatePrenotazioniRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PrenotazioniController extends Controller
 {
@@ -13,7 +15,15 @@ class PrenotazioniController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+    
+        if ($user->is_admin == 1) {
+            $prenotazioni = Prenotazioni::with('corsi')->with('user')->get();
+        } else {
+            $prenotazioni = Prenotazioni::where('users_id', $user->id)->with('corsi')->with('user')->get();
+        }
+    
+        return view('prenotazioni', ['prenotazioni' => $prenotazioni, 'user' => $user]);
     }
 
     /**

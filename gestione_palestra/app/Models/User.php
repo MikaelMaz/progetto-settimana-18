@@ -17,7 +17,7 @@ class User extends Authenticatable
 
 
     public function corsi(): HasMany{
-        return $this->hasMany(Corsi::class);
+        return $this->hasMany(Corsi::class, 'corsis_id');
     }
 
     public function prenotazioni(): HasManyThrough {

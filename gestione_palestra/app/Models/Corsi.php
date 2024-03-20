@@ -12,11 +12,11 @@ class Corsi extends Model
     use HasFactory;
 
     public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
     }
 
     public function prenotazioni(): HasMany {
-        return $this->hasMany(Prenotazioni::class);
+        return $this->hasMany(Prenotazioni::class , 'prenotazionis_id');
     }
 
 }
