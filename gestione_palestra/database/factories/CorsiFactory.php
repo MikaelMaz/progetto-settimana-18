@@ -16,14 +16,14 @@ class CorsiFactory extends Factory
      */
     public function definition(): array
     {
-        $start = fake()->dateTime();
+        $start = fake()->dateTimeBetween('now', '+1 month');
         $end = clone $start;
         $end->modify('+1 hour');
 
         return [
             'titolo' => fake()->word(),
             'descrizione' => fake()->sentence(),
-            'giorno' => fake()->dateTime(),
+            'giorno' => fake()->dayOfWeek(),
             'inizio' => $start,
             'fine' => $end,
         ];
